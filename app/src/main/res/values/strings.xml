@@ -15,4 +15,5 @@
     <string name="subtitle_format">%1$s crimes</string>
 
     <string name="delete_crime">Delete</string>
+    <string name="empty_screen_message">THERE ARE NO CRIMES, WOULD YOU LIKE TO ADD SOME?</string>
 </resources>
