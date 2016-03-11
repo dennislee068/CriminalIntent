@@ -15,5 +15,11 @@
     <string name="subtitle_format">%1$s crimes</string>
 
     <string name="delete_crime">Delete</string>
+
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$s crime</item>
+        <item quantity="other">%1s crimes</item>
+    </plurals>
+
     <string name="empty_screen_message">THERE ARE NO CRIMES, WOULD YOU LIKE TO ADD SOME?</string>
 </resources>
