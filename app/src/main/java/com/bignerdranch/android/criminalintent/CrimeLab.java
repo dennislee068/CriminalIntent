@@ -103,7 +103,10 @@ public class CrimeLab {
         return new CrimeCursorWrapper(cursor);
     }
 
-    public void deleteCrime(Crime c){
-
+    public void deleteCrime(UUID crimeId){
+        String uuidString = crimeId.toString();
+        mDatabase.delete(CrimeDbSchema.CrimeTable.NAME,
+                CrimeDbSchema.CrimeTable.Cols.UUID + " = ?",
+                new String[]{uuidString});
     }
 }
