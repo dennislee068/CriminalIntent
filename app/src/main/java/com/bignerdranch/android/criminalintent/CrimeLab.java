@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 import database.CrimeBaseHelper;
-import database.CrimeDbSchema;
+import database.CrimeDbSchema.*;
 
 public class CrimeLab {
     private static CrimeLab sCrimeLab;
@@ -22,7 +22,7 @@ public class CrimeLab {
     public void addCrime(Crime c) {
         ContentValues values = getContentValues(c);
 
-        mDatabase.insert(CrimeDbSchema.CrimeTable.NAME, null, values);
+        mDatabase.insert(CrimeTable.NAME, null, values);
     }
 
     public static CrimeLab get(Context context) {
@@ -57,7 +57,7 @@ public class CrimeLab {
 
     public Crime getCrime(UUID id) {
         CrimeCursorWrapper cursor = queryCrimes(
-                CrimeDbSchema.CrimeTable.Cols.UUID + " = ?",
+                CrimeTable.Cols.UUID + " = ?",
                 new String[] { id.toString()}
         );
 
@@ -76,23 +76,24 @@ public class CrimeLab {
         String uuidString = crime.getId().toString();
         ContentValues values = getContentValues(crime);
 
-        mDatabase.update(CrimeDbSchema.CrimeTable.NAME, values,
-                CrimeDbSchema.CrimeTable.Cols.UUID + " = ?",
+        mDatabase.update(CrimeTable.NAME, values,
+                CrimeTable.Cols.UUID + " = ?",
                 new String[] { uuidString });
     }
 
     private static ContentValues getContentValues(Crime crime) {
         ContentValues values = new ContentValues();
-        values.put(CrimeDbSchema.CrimeTable.Cols.UUID, crime.getId().toString());
-        values.put(CrimeDbSchema.CrimeTable.Cols.TITLE, crime.getTitle());
-        values.put(CrimeDbSchema.CrimeTable.Cols.DATE, crime.getDate().getTime());
-        values.put(CrimeDbSchema.CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
+        values.put(CrimeTable.Cols.UUID, crime.getId().toString());
+        values.put(CrimeTable.Cols.TITLE, crime.getTitle());
+        values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
+        values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
+        values.put(CrimeTable.Cols.SUSPECT, crime.getSuspect());
         return values;
     }
 
     private CrimeCursorWrapper queryCrimes(String whereClause, String [] whereArgs){
         Cursor cursor = mDatabase.query(
-                CrimeDbSchema.CrimeTable.NAME,
+                CrimeTable.NAME,
                 null, //Columns - nnull select all columns
                 whereClause,
                 whereArgs,
@@ -105,8 +106,8 @@ public class CrimeLab {
 
     public void deleteCrime(UUID crimeId){
         String uuidString = crimeId.toString();
-        mDatabase.delete(CrimeDbSchema.CrimeTable.NAME,
-                CrimeDbSchema.CrimeTable.Cols.UUID + " = ?",
+        mDatabase.delete(CrimeTable.NAME,
+                CrimeTable.Cols.UUID + " = ?",
                 new String[]{uuidString});
     }
 }
