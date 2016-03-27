@@ -38,6 +38,7 @@ public class CrimeFragment extends Fragment {
 
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
+    private static final String DIALOG_ZOOM_SUSPECT = "DialogZoomSuspect";
 
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT = 1;
@@ -199,6 +200,15 @@ public class CrimeFragment extends Fragment {
 
         mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
         updatePhotoView();
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mPhotoFile != null && mPhotoFile.exists()) {
+                    FragmentManager manager = getFragmentManager();
+                    ZoomSuspectFragment.newInstance(mPhotoFile).show(manager,DIALOG_ZOOM_SUSPECT);
+                }
+            }
+        });
 
         return v;
     }
